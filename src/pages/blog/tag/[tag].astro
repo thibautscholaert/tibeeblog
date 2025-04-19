@@ -1,0 +1,60 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const tags = [...new Set(posts.flatMap(post => post.data.tags))];
+  
+  return tags.map(tag => {
+    const filteredPosts = posts.filter(post => post.data.tags.includes(tag));
+    return {
+      params: { tag },
+      props: { posts: filteredPosts, tag },
+    };
+  });
+}
+
+const { posts, tag } = Astro.props;
+const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Get all unique tags for the tag filter
+const allPosts = await getCollection('blog');
+const allTags = [...new Set(allPosts.flatMap(post => post.data.tags))].sort();
+---
+
+<Layout title={`Articles sur ${tag}`} description={`Découvrez tous nos articles sur le sujet "${tag}"`}>
+  <section class="py-8 mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-neon-blue to-neon-purple text-transparent bg-clip-text">
+      Articles sur <span class="text-neon-blue">{tag}</span>
+    </h1>
+    
+    <div class="flex flex-wrap gap-2 mb-8">
+      <a href="/blog" class="tag">
+        Tous
+      </a>
+      {allTags.map(tagName => (
+        <a 
+          href={`/blog/tag/${tagName}`} 
+          class={`tag ${tagName === tag ? 'bg-neon-blue text-tech-darker' : ''}`}
+        >
+          {tagName}
+        </a>
+      ))}
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {sortedPosts.map((post) => (
+        <ArticleCard
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.date}
+          tags={post.data.tags}
+          slug={post.slug}
+          image={post.data.image}
+        />
+      ))}
+    </div>
+  </section>
+</Layout>

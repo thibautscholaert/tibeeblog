@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Get unique tags from all posts
+const allTags = [...new Set(posts.flatMap(post => post.data.tags))].sort();
+---
+
+<Layout title="Blog">
+  <section class="py-8 mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-neon-blue to-neon-purple text-transparent bg-clip-text">
+      Tous les articles
+    </h1>
+    
+    <div class="flex flex-wrap gap-2 mb-8">
+      <a href="/blog" class={`tag ${Astro.url.pathname === '/blog/' ? 'bg-neon-blue text-tech-darker' : ''}`}>
+        Tous
+      </a>
+      {allTags.map(tag => (
+        <a href={`/blog/tag/${tag}`} class="tag">
+          {tag}
+        </a>
+      ))}
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {sortedPosts.map((post) => (
+        <ArticleCard
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.date}
+          tags={post.data.tags}
+          slug={post.slug}
+          image={post.data.image}
+        />
+      ))}
+    </div>
+  </section>
+</Layout>

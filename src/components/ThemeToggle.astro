@@ -1,0 +1,34 @@
+<div class="flex items-center">
+  <span id="theme-toggle" class="theme-toggle" role="button" aria-label="Toggle theme"></span>
+</div>
+
+<script>
+  // Theme toggle functionality
+  const themeToggle = document.getElementById('theme-toggle');
+  const body = document.body;
+  
+  // Check for saved theme preference or use device preference
+  const userTheme = localStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  // Set initial theme
+  if (userTheme === 'light') {
+    body.classList.add('light');
+  } else if (userTheme === null && !systemPrefersDark) {
+    body.classList.add('light');
+  }
+  
+  // Theme toggle click handler
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('light');
+      
+      // Save preference to localStorage
+      if (body.classList.contains('light')) {
+        localStorage.setItem('theme', 'light');
+      } else {
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+  }
+</script>

@@ -1,0 +1,75 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ArticleCard from "../components/ArticleCard.astro";
+import { getCollection } from "astro:content";
+
+// Get all blog posts and sort by date
+const posts = await getCollection("blog");
+const sortedPosts = posts.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+---
+
+<Layout title="Blog Tech Futuriste">
+  <section class="relative py-16 mb-16 overflow-hidden">
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <div
+        class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-neon-blue/20 via-tech-dark to-tech-darker"
+      >
+      </div>
+      <div
+        class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neon-blue to-transparent"
+      >
+      </div>
+      <div
+        class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neon-purple to-transparent"
+      >
+      </div>
+    </div>
+
+    <div class="relative z-10 container mx-auto text-center max-w-4xl">
+      <h1
+        class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-neon-blue to-neon-purple text-transparent bg-clip-text"
+      >
+        TIBEE<span class="text-neon-blue">TECH</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto">
+        Tech blogs futuriste partageant des réflexions sur l'innovation, l'IA et les tendances numériques de demain.
+      </p>
+      <a href="#latest-articles" class="neon-button">
+        Découvrir les articles
+      </a>
+    </div>
+  </section>
+
+  <section id="latest-articles" class="py-10">
+    <div class="flex justify-between items-baseline mb-10">
+      <h2
+        class="text-3xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple text-transparent bg-clip-text"
+      >
+        Articles récents
+      </h2>
+      <a
+        href="/blog"
+        class="text-neon-blue hover:text-neon-purple transition-colors duration-300 font-mono"
+      >
+        Voir tous les articles
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {
+        sortedPosts.map((post) => (
+          <ArticleCard
+            title={post.data.title}
+            description={post.data.description}
+            date={post.data.date}
+            tags={post.data.tags}
+            slug={post.slug}
+            image={post.data.image}
+          />
+        ))
+      }
+    </div>
+  </section>
+</Layout>

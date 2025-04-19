@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-tech-dark text-tech-light font-sans transition-colors duration-300 min-h-screen;
+  }
+
+  body.light {
+    @apply bg-tech-light text-tech-dark;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply relative px-4 py-2 font-mono text-tech-light hover:text-neon-blue transition-colors duration-300 overflow-hidden;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute left-0 bottom-0 h-[1px] w-full bg-gradient-to-r from-neon-blue to-neon-purple transform scale-x-0 transition-transform duration-300 origin-bottom-right;
+  }
+
+  .nav-link:hover::after {
+    @apply transform scale-x-100 origin-bottom-left;
+  }
+
+  .nav-link:hover {
+    @apply animate-glow;
+  }
+
+  .neon-button {
+    @apply relative inline-block px-6 py-3 font-mono text-tech-light bg-gradient-to-r from-neon-blue to-neon-purple rounded-lg overflow-hidden transition-all duration-300;
+  }
+
+  .scanline-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scanline-effect::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(0, 255, 255, 0.5), transparent);
+    top: -10%;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    animation: scanline 2s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .scanline-effect:hover::before {
+    opacity: 1;
+  }
+
+  .theme-toggle {
+    @apply relative w-14 h-7 rounded-full bg-metal-gray transition-colors duration-300 cursor-pointer;
+  }
+
+  .theme-toggle::after {
+    content: '';
+    @apply absolute top-1 left-1 w-5 h-5 rounded-full bg-neon-blue transition-all duration-300;
+  }
+
+  .light .theme-toggle {
+    @apply bg-gray-300;
+  }
+
+  .light .theme-toggle::after {
+    @apply transform translate-x-7 bg-neon-purple-dim;
+  }
+}
