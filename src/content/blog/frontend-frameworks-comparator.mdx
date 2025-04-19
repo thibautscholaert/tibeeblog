@@ -28,3 +28,109 @@ React est devenu une norme de facto dans le développement front-end moderne. Gr
 function Button({ label }) {
   return <button className="btn">{label}</button>;
 }
+```
+
+**👍 Points forts** :
+- Grande communauté et richesse de l’écosystème
+- Rendu côté serveur avec Next.js
+- Flexibilité extrême
+
+**👎 Inconvénients** :
+- Nécessite souvent d'ajouter des outils tiers
+- Plus de configuration pour démarrer un projet structuré
+
+## Vue.js – Simplicité et progressivité
+
+Vue séduit par sa courbe d'apprentissage douce et sa capacité à s’intégrer progressivement dans une application existante. Il est souvent préféré par les développeurs venant d’un background HTML/CSS classique.
+
+```vue
+<template>
+  <button @click="count++">{{ count }}</button>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+const count = ref(0)
+</script>
+```
+
+**👍 Points forts** :
+- Syntaxe claire et intuitive
+- Composition API puissante
+- Parfait pour des projets moyens à grands
+
+**👎 Inconvénients** :
+- Moins de soutien des grandes entreprises comparé à React
+- Moins d’outils de premier plan comparables à Next.js
+
+## Angular – Le mastodonte d'entreprise
+
+Angular est une solution tout-en-un, adaptée aux grandes applications avec des exigences strictes en matière d'architecture. Il impose une certaine rigueur, ce qui plaît particulièrement aux équipes en entreprise.
+
+```ts
+@Component({
+  selector: 'app-button',
+  template: `<button (click)="increment()">{{ count }}</button>`,
+})
+export class ButtonComponent {
+  count = 0;
+  increment() { this.count++; }
+}
+```
+
+**👍 Points forts** :
+- Structure solide pour les grandes équipes
+- TypeScript natif
+- Très bon support entreprise
+
+**👎 Inconvénients** :
+- Verbeux
+- Courbe d'apprentissage plus raide
+
+## Svelte – La nouvelle vague
+
+Svelte se distingue par son approche compilée : il transforme le code en JavaScript optimisé au moment du build, éliminant le besoin d’un runtime lourd. Idéal pour les projets légers et performants.
+
+```svelte
+<script>
+  let count = 0;
+</script>
+
+<button on:click={() => count++}>
+  {count}
+</button>
+```
+
+**👍 Points forts** :
+- Performances natives
+- Code concis
+- Pas de virtual DOM
+
+**👎 Inconvénients** :
+- Moins mature
+- Écosystème plus restreint
+
+## Quel framework pour quel besoin ?
+
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-6 my-8">
+  <div className="border border-gray-700 p-4 rounded-lg">
+    <h3 className="text-lg font-semibold text-blue-400 mb-2">👨‍💻 Pour un projet personnel ou startup</h3>
+    <p><strong>Svelte</strong> ou <strong>Vue</strong> permettent de démarrer rapidement et de maintenir un code clair.</p>
+  </div>
+  <div className="border border-gray-700 p-4 rounded-lg">
+    <h3 className="text-lg font-semibold text-green-400 mb-2">🏢 Pour une application entreprise</h3>
+    <p><strong>Angular</strong> offre un cadre robuste avec une scalabilité native.</p>
+  </div>
+  <div className="border border-gray-700 p-4 rounded-lg">
+    <h3 className="text-lg font-semibold text-yellow-400 mb-2">🌐 Pour un site web SEO-friendly</h3>
+    <p><strong>React avec Next.js</strong> est aujourd’hui la référence pour le rendu côté serveur.</p>
+  </div>
+  <div className="border border-gray-700 p-4 rounded-lg">
+    <h3 className="text-lg font-semibold text-pink-400 mb-2">🚀 Pour explorer l’innovation</h3>
+    <p><strong>Svelte</strong> propose une expérience rafraîchissante avec une approche différente de la réactivité.</p>
+  </div>
+</div>
+
+---
+
+En 2025, le choix du framework ne dépend plus uniquement de la popularité, mais de l’alignement entre les outils, les besoins de l’équipe et la vision du projet. Quel que soit votre choix, gardez à l’esprit que la qualité du code et l’expérience développeur priment sur les effets de mode.

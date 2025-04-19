@@ -44,6 +44,10 @@
     @apply relative inline-block px-6 py-3 font-mono text-tech-light bg-gradient-to-r from-neon-blue to-neon-purple rounded-lg overflow-hidden transition-all duration-300;
   }
 
+  .tag {
+    @apply m-1 inline-block px-3 py-1 text-sm font-mono text-tech-light bg-gradient-to-r from-neon-blue to-neon-purple rounded-full transition-all duration-300;
+  }
+
   .scanline-effect {
     position: relative;
     overflow: hidden;
